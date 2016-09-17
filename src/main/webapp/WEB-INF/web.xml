@@ -1,0 +1,75 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+
+    <display-name>Archetype Created Web Application</display-name>
+
+    <!-- Callback filter -->
+    <filter>
+
+        <filter-name>callbackFilter</filter-name>
+        <filter-class>org.pac4j.j2e.filter.CallbackFilter</filter-class>
+
+        <init-param>
+            <param-name>defaultUrl</param-name>
+            <param-value>/</param-value>
+        </init-param>
+
+    </filter>
+
+    <!-- Security filter -->
+    <filter>
+
+        <filter-name>FormFilter</filter-name>
+        <filter-class>org.pac4j.j2e.filter.SecurityFilter</filter-class>
+
+        <init-param>
+            <param-name>configFactory</param-name>
+            <param-value>lima.alves.jefferson.pac4j.ConfigFactoryImp</param-value>
+        </init-param>
+
+        <init-param>
+            <param-name>clients</param-name>
+            <param-value>FormClient</param-value>
+        </init-param>
+
+        <init-param>
+            <param-name>authorizers</param-name>
+            <param-value>securityHeaders</param-value>
+        </init-param>
+
+    </filter>
+
+    <!-- Logout filter -->
+    <filter>
+        <filter-name>logoutFilter</filter-name>
+        <filter-class>org.pac4j.j2e.filter.ApplicationLogoutFilter</filter-class>
+        <init-param>
+            <param-name>defaultUrl</param-name>
+            <param-value>
+                http://localhost:8080/pac4j-example/loggedout.jsp
+            </param-value>
+        </init-param>
+    </filter>
+
+    <!-- Callback filter mapping -->
+    <filter-mapping>
+        <filter-name>callbackFilter</filter-name>
+        <url-pattern>/callback</url-pattern>
+    </filter-mapping>
+
+    <!-- Security filter mapping -->
+    <filter-mapping>
+        <filter-name>FormFilter</filter-name>
+        <url-pattern>/restrict/*</url-pattern>
+    </filter-mapping>
+
+    <!-- Logout filter mapping -->
+    <filter-mapping>
+        <filter-name>logoutFilter</filter-name>
+        <url-pattern>/logout</url-pattern>
+    </filter-mapping>
+
+</web-app>
